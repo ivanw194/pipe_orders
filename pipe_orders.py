@@ -4,7 +4,7 @@ import csv
 
 
 """
-Part 1 (15 pts) - Complete the pipe class (see paper instructions for guidance)
+Part 1 - Complete the pipe class
 """
 class Pipe:
     def __init__(self, type, length):
@@ -56,7 +56,8 @@ class Order:
 
     def __repr__(self):
         return "[" + str(self.__order_num) + "]" + "[" + str(self.complete()) + "]"
-
+#  Complete the create_orders function below to generate the
+    # orders of pipes
 def create_orders(filename):
     orders = []
 
@@ -73,6 +74,7 @@ def create_orders(filename):
             orders.append(order)
 
     return orders
+#  Complete the Customer class below 
 class Customer:
     def __init__(self, number, order_num):
         self.__number = number
@@ -91,7 +93,8 @@ class Customer:
     def __str__(self):
         return "[" + self.__number + "]" + "[" + str(self.__order_num) + "]"
     
-
+# Complete the create_customers function below to generate a
+#   line of customers.
 def create_customers(filename):
     customers_queue = node_queue.Queue()  # Creating an instance of the Queue class
 
@@ -105,7 +108,7 @@ def create_customers(filename):
             customers_queue.enqueue(customer)  # Enqueue the customer into the queue
 
     return customers_queue
-
+# Complete the pick_up_orders function below to have customers pick up their orders
 def pick_up_orders(orders, customers):
     back_in_line_counts = {}
     order_index = 0
@@ -124,7 +127,7 @@ def pick_up_orders(orders, customers):
             customers.put(customer)
 
     return back_in_line_counts
-
+ #don't forget to return A data structure (hint: dictionary) that associates each customer to their back-in-line count
 def main():
     # Parts 1 - 3: Create a stack of orders of pipes
     orders = create_orders("data/pipe_orders.csv")
