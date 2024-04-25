@@ -1,7 +1,5 @@
-import node_stack
 import node_queue
 import csv
-
 
 """
 Part 1 - Complete the pipe class
@@ -11,7 +9,7 @@ class Pipe:
         self.__length = int(length)
         self.__type = str(type)
 
-    def __str__(self):
+    def __repr__(self):
         return "[" + self.__type + str(self.__length) + "]"
     
     def __lt__(self, other):
@@ -21,9 +19,9 @@ class Order:
     def __init__(self, pipes, order_num, length, type):
         self.__pipes = pipes
         self.__order_num = order_num
-        self.__length = length
+        self.__length = len(self.__pipes)
         self.__type = type
-
+        
     def type(self):
         return self.__type
 
@@ -43,7 +41,7 @@ class Order:
         return len(self.__pipes) >= self.__order_num
 
     def is_empty(self):
-        return not bool(self.__pipes)
+        return self.__length == 0
 
     def add_pipe(self):
         if self.is_full():
@@ -54,8 +52,8 @@ class Order:
     def complete(self):
         self.__pipes.sort()
 
-    def __repr__(self):
-        return "[" + str(self.__order_num) + "]" + "[" + str(self.complete()) + "]"
+def __repr__(self):
+    return "Order #" + str(self.__order_num) + " " + str(self.__pipes)
 #  Complete the create_orders function below to generate the
     # orders of pipes
 def create_orders(filename):
@@ -113,19 +111,14 @@ def pick_up_orders(orders, customers):
     back_in_line_counts = {}
     order_index = 0
 
-    while not customers.empty() and order_index < len(orders):
-        customer = customers.get()
+    while orders and order_index < len(orders):
+        customer = customers.dequeue()
         order = orders[order_index]
-        
-        if customer.type() in order:
-            if customer in back_in_line_counts:
-                back_in_line_counts[customer] += 1
-            else:
-                back_in_line_counts[customer] = 1
-            order_index += 1
+        if customer in back_in_line_counts:
+            back_in_line_counts[customer] += 1
         else:
-            customers.put(customer)
-
+            back_in_line_counts[customer] = 1
+        order_index += 1
     return back_in_line_counts
  #don't forget to return A data structure (hint: dictionary) that associates each customer to their back-in-line count
 def main():
@@ -148,7 +141,6 @@ def main():
     print("Back In Line Counts (order of customer and counts does not need to match):")
     print("Actual:   " + str(back_in_line_counts))
     print("Expected: " + EXPECTED_BACK_IN_LINE_COUNTS)
-
 # Extra Testing
 EXPECTED_ORDERS = "[Order #112 [PEX 3ft, PEX 3ft, BLACK 9ft, ABS 15ft, COPPER 17ft], Order #113 [PEX 20ft], Order #111 [PVC 5ft, COPPER 6ft], Order #115 [BLACK 14ft, PVC 17ft, PEX 20ft, ABS 39ft], Order #114 [BLACK 7ft, COPPER 7ft, PEX 8ft]]"
 EXPECTED_CUSTOMERS = "[Cust #X8521 Order #113, Cust #R7468 Order #115, Cust #A2563 Order #114, Cust #L1386 Order #112, Cust #M7427 Order #111]"
