@@ -52,8 +52,8 @@ class Order:
     def complete(self):
         self.__pipes.sort()
 
-def __repr__(self):
-    return "Order #" + str(self.__order_num) + " " + str(self.__pipes)
+    def __repr__(self):
+        return "Order #" + str(self.__order_num) + " " + str(self.__pipes)
 #  Complete the create_orders function below to generate the
     # orders of pipes
 def create_orders(filename):
@@ -88,9 +88,8 @@ class Customer:
     def __hash__(self):
         return hash(self.__number)
     
-    def __str__(self):
-        return "[" + self.__number + "]" + "[" + str(self.__order_num) + "]"
-    
+    def __repr__(self):
+        return "Cust" + " " + "#" +self.__number + " " + "Order" +" "+"#"+ str(self.__order_num)
 # Complete the create_customers function below to generate a
 #   line of customers.
 def create_customers(filename):
